@@ -3,11 +3,6 @@
 # Nov. 2021
 # Seyed Nami Modarressi
 
-# Todo :
-#  1 ) input String and machines ==> Done
-#  2 ) write accept function ==> Done
-#  3 ) use function for A and B and String ==> Done
-#  4 ) add an examples ==> Done
 import numpy as np
 
 def accept(automata , automata_finals , alphabet ,alphabet_size , input_string):
@@ -35,7 +30,7 @@ def accept(automata , automata_finals , alphabet ,alphabet_size , input_string):
         if state == int(i):
             return 1
     return 0
-    
+
 # main program 
 alphabet = []
 automata_A = []
