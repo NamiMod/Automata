@@ -5,21 +5,38 @@
 
 # Todo :
 #  1 ) input String and machines ==> Done
-#  2 ) write accept function
+#  2 ) write accept function ==> Done
 #  3 ) use function for A and B and String ==> Done
-#  4 ) add an example
+#  4 ) add an examples ==> Done
 import numpy as np
 
-def accept(automata , automata_size , automata_finals , input_string):
+def accept(automata , automata_finals , alphabet ,alphabet_size , input_string):
     # in this function we insert input_string in automata and get result
     # result :
     # 1 ==> input string is acceptable
     # 0 ==> input string is not acceptable
+    counter = 0 
+    state = 0 # ==> We start from node 0
+    while counter < len(input_string):
+        action = input_string[counter]
+        action_number = 0
+        flag = 0
+        for i in range(0,alphabet_size):
+            if action == alphabet[i]:
+                action_number = i
+                flag = 1
+                break
+        if flag == 0:
+            return 0
+        state = int(automata[state][action_number])
+        counter = counter + 1
+
+    for i in automata_finals:
+        if state == int(i):
+            return 1
+    return 0
     
-
-
-   return 1
-
+# main program 
 alphabet = []
 automata_A = []
 automata_A_size = 0
@@ -43,8 +60,8 @@ for i in input_String:
 if in_alphabet_flag == 0:
     print("\nInvalid string . Enter string with given alphabet")
 else:
-    # String is OK
-    # now we get machine A
+# String is OK
+# now we get machine A
     automata_A_size = int(input("\nEnter number of nodes(states) for first machine :"))
     automata_A = input("\nEnter transition table for first machine (from [0,0] to [size,size] with ',' like alphabet) :")
     automata_A = automata_A.split(",")
@@ -87,11 +104,13 @@ else:
     automata_B_finals = input("\nEnter 'Goal' nodes for second machine(without 'P' - with ',' like alphabet) :")
     automata_B_finals = automata_B_finals.split(",")
     # now we check input_string in machines
-    result_A = accept(automata_A,automata_A_size,automata_A_finals,input_String)
-    result_B = accept(automata_A,automata_A_size,automata_A_finals,input_String)
+    result_A = accept(automata_A,automata_A_finals,alphabet,len(alphabet),input_String)
+    result_B = accept(automata_B,automata_B_finals,alphabet,len(alphabet),input_String)
     if result_A == 1 and result_B == 1:
         print("\nAnswer : input String is acceptable in both machines\n")
     elif result_A == 1 and result_B == 0:
         print("\nAnswer : input String is acceptable in first machine but it's not acceptable in second one\n")
     elif result_A == 0 and result_B == 1:
         print("\nAnswer : input String is acceptable in second machine but it's not acceptable in first one\n")
+    elif result_A == 0 and result_B == 0:
+        print("\nAnswer : input String is not acceptable in machines\n")
