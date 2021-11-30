@@ -6,9 +6,19 @@
 # Todo :
 #  1 ) input String and machines ==> Done
 #  2 ) write accept function
-#  3 ) use function for A and B and String 
+#  3 ) use function for A and B and String ==> Done
 #  4 ) add an example
 import numpy as np
+
+def accept(automata , automata_size , automata_finals , input_string):
+    # in this function we insert input_string in automata and get result
+    # result :
+    # 1 ==> input string is acceptable
+    # 0 ==> input string is not acceptable
+    
+
+
+   return 1
 
 alphabet = []
 automata_A = []
@@ -53,7 +63,7 @@ else:
         for j in range(0 , len(alphabet)):
             print(automata_A[i][j] , end="  ")
         print("\n")
-    automata_A_finals = input("\nEnter 'Goal' nodes for first machine(without 'P' - with ',' like alphabet) :")
+    automata_A_finals = input("\nEnter 'Goal' nodes for first machine(without 'Q' - with ',' like alphabet) :")
     automata_A_finals = automata_A_finals.split(",")
     # now we get machine B
     automata_B_size = int(input("\nEnter number of nodes(states) for second machine :"))
@@ -76,4 +86,12 @@ else:
         print("\n")
     automata_B_finals = input("\nEnter 'Goal' nodes for second machine(without 'P' - with ',' like alphabet) :")
     automata_B_finals = automata_B_finals.split(",")
-    
+    # now we check input_string in machines
+    result_A = accept(automata_A,automata_A_size,automata_A_finals,input_String)
+    result_B = accept(automata_A,automata_A_size,automata_A_finals,input_String)
+    if result_A == 1 and result_B == 1:
+        print("\nAnswer : input String is acceptable in both machines\n")
+    elif result_A == 1 and result_B == 0:
+        print("\nAnswer : input String is acceptable in first machine but it's not acceptable in second one\n")
+    elif result_A == 0 and result_B == 1:
+        print("\nAnswer : input String is acceptable in second machine but it's not acceptable in first one\n")
